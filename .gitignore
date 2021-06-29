@@ -44,3 +44,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# build runner related
+# *.freezed.dart
+*.g.dart
+*.mocks.dart
+*.gr.dart

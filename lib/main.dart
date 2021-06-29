@@ -4,11 +4,11 @@ import 'service_locator.dart' as di;
 void main() async{
   //initialize dependency injection
   await di.init();
-  
-  runApp(MyApp());
+
+  runApp(ShoeList());
 }
 
-class MyApp extends StatelessWidget {
+class ShoeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
