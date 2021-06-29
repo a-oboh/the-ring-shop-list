@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'service_locator.dart' as di;
 
-void main() {
+void main() async{
+  //initialize dependency injection
+  await di.init();
+  
   runApp(MyApp());
 }
 
