@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
-part 'shop_list.freezed.dart';
-part 'shop_list.g.dart';
+part 'shop_list_model.freezed.dart';
+part 'shop_list_model.g.dart';
 
 ShopListModel shopListFromJson(String rawJson) =>
     ShopListModel.fromJson(json.decode(rawJson));
@@ -21,12 +21,13 @@ class ShopListModel with _$ShopListModel {
 class ShopListData with _$ShopListData {
   const factory ShopListData({
     required String id,
-    required String slug,
+    String? slug,
     @JsonKey(name: 'cover_url') String? coverUrl,
     required String name,
-    // required Address address,
+    required Address address,
     @JsonKey(name: 'phone_number') String? phoneNumber,
-    // required City city,
+    required City city,
+    Products? product,
     @JsonKey(name: 'average_rating') int? averageRating,
     @JsonKey(name: 'review_count') int? reviewCount,
     @JsonKey(name: 'activity_names') List<String>? activityNames,
@@ -79,4 +80,39 @@ class CountryDetails with _$CountryDetails {
 
   factory CountryDetails.fromJson(Map<String, dynamic> json) =>
       _$CountryDetailsFromJson(json);
+}
+
+@freezed
+class Products with _$Products {
+  const factory Products({
+    required List<SingleProduct> products,
+  }) = _Products;
+
+  factory Products.fromJson(Map<String, dynamic> json) =>
+      _$ProductsFromJson(json);
+}
+
+@freezed
+class SingleProduct with _$SingleProduct {
+  const factory SingleProduct({
+    String? id,
+    Master? master,
+  }) = _Product;
+
+  factory SingleProduct.fromJson(Map<String, dynamic> json) =>
+      _$SingleProductFromJson(json);
+}
+
+@freezed
+class Master with _$Master {
+  const factory Master({
+    String? id,
+    String? currency,
+    @JsonKey(name: 'tax_included_price_in_cents') int? taxIncludedPriceInCents,
+    @JsonKey(name: 'illustration_url') String? illustrationUrl,
+    String? name,
+    int? stock,
+  }) = _Master;
+
+  factory Master.fromJson(Map<String, dynamic> json) => _$MasterFromJson(json);
 }
