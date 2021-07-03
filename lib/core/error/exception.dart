@@ -4,7 +4,11 @@ class ServerException implements Exception {
   final String? message;
 }
 
-class InvalidException implements Exception {}
+class NetworkException implements Exception {
+  NetworkException({this.message = 'Please check your internet connection'});
+
+  final String message;
+}
 
 class BadRequestException implements Exception {
   BadRequestException({this.message});

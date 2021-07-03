@@ -25,7 +25,8 @@ class BadRequestFailure extends Failure {
   final String? message;
 }
 
-class InvalidFailure extends Failure {
-  const InvalidFailure({this.message}) : super(message: message);
+class NetworkFailure extends Failure {
+  const NetworkFailure({this.message}) : super(message: message);
+  
   final String? message;
 }
