@@ -4,17 +4,17 @@ import 'dart:convert';
 part 'shop_list.freezed.dart';
 part 'shop_list.g.dart';
 
-ShopList shopListFromJson(String rawJson) =>
-    ShopList.fromJson(json.decode(rawJson));
+ShopListModel shopListFromJson(String rawJson) =>
+    ShopListModel.fromJson(json.decode(rawJson));
 
 @freezed
-class ShopList with _$ShopList {
-  const factory ShopList({
+class ShopListModel with _$ShopListModel {
+  const factory ShopListModel({
     required List<ShopListData> shops,
-  }) = _ShopList;
+  }) = _ShopListModel;
 
-  factory ShopList.fromJson(Map<String, dynamic> json) =>
-      _$ShopListFromJson(json);
+  factory ShopListModel.fromJson(Map<String, dynamic> json) =>
+      _$ShopListModelFromJson(json);
 }
 
 @freezed
