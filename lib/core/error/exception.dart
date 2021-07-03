@@ -1,7 +1,13 @@
 class ServerException implements Exception {
-  // final String message;
+  ServerException({this.message});
 
-  // ServerException(this.message);
+  final String? message;
 }
 
 class InvalidException implements Exception {}
+
+class BadRequestException implements Exception {
+  BadRequestException({this.message});
+
+  final String? message;
+}

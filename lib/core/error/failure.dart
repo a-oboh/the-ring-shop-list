@@ -18,6 +18,13 @@ class ServerFailure extends Failure {
   final String? message;
 }
 
+class BadRequestFailure extends Failure {
+  const BadRequestFailure(
+      {this.message = 'Something went wrong, please check your inputs'})
+      : super(message: message);
+  final String? message;
+}
+
 class InvalidFailure extends Failure {
   const InvalidFailure({this.message}) : super(message: message);
   final String? message;
