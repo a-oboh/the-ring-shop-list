@@ -1,0 +1,65 @@
+{
+  "shops": [
+    {
+      "id": "afb62700-d2e2-45f5-ace7-3eb883e21b4c",
+      "slug": "kintama-afb62700",
+      "cover_url": "https://ik.imagekit.io/z3atstaayc/production/shops/afb62700-d2e2-45f5-ace7-3eb883e21b4c/cover/90f564c7-c991-4e0a-b4bc-632e35b50d37?tr=h-500,w-500",
+      "name": "Kintama",
+      "address": {
+        "address1": "2 Rue des Bouchers",
+        "zip_code": "59800",
+        "city": "Lille",
+        "country": "France",
+        "latitude": 50.638697,
+        "longitude": 3.0582597
+      },
+      "phone_number": "+33981221223",
+      "city": {
+        "id": "8f285bca-baec-442e-8a21-e067b75d8f13",
+        "slug": "lille",
+        "name": "Lille",
+        "latitude": 50.637851244812985,
+        "longitude": 3.0463752971881326,
+        "zip_code": "59000",
+        "country": "France",
+        "country_details": {
+          "name": "France",
+          "country_code": "FR",
+          "language_code": "fr-FR"
+        }
+      },
+      "average_rating": null,
+      "review_count": 0,
+      "activity_names": [
+        "Restauration"
+      ],
+      "products": [
+        {
+          "id": "e714f0b2-7c13-4eae-96de-ec2d54f12025",
+          "master": {
+            "id": "29eb6a70-7484-4536-95d1-bb3dadec3ee6",
+            "currency": "EUR",
+            "tax_included_price_in_cents": 1400,
+            "illustration_url": "https://ik.imagekit.io/z3atstaayc/production/products/e714f0b2-7c13-4eae-96de-ec2d54f12025/medias/79530ff8-97d5-4bad-88e4-b877b9935420?tr=h-500,w-500",
+            "name": "Ramen Viandard",
+            "stock": 0
+          }
+        },
+        {
+          "id": "3524efa2-395a-4a60-bdbf-7d0db6d0b5a9",
+          "master": {
+            "id": "a53134eb-6b1e-4bba-b900-8ccdfba8b03b",
+            "currency": "EUR",
+            "tax_included_price_in_cents": 750,
+            "illustration_url": "https://ik.imagekit.io/z3atstaayc/production/products/3524efa2-395a-4a60-bdbf-7d0db6d0b5a9/medias/b0cb65a5-97c5-46d1-b19c-111e9d086444?tr=h-500,w-500",
+            "name": "Baos Porc",
+            "stock": 0
+          }
+        }
+      ],
+      "is_favourite": false,
+      "distance_in_meters": 845
+    }
+  ],
+  "shop_count": 122
+}
