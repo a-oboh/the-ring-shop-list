@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ring_shop_list/core/utils/size_config.dart';
 
 extension ContextExtension on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
@@ -30,4 +31,12 @@ extension ImageKit on String {
             .replaceFirst(RegExp(r'(w-)\d*'), 'w-${width.toInt()}') +
         ',q-10,bl-10';
   }
+}
+
+extension SizeExtension on num {
+  double get height => SizeConfig.height(this.toDouble());
+
+  num get width => SizeConfig.width(this.toDouble());
+
+  num get text => SizeConfig.textSize(this.toDouble());
 }

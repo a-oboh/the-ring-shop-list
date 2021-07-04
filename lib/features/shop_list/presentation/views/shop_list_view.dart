@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ring_shop_list/core/notifiers/generic_state.dart';
 import 'package:ring_shop_list/core/utils/constants.dart';
+import 'package:ring_shop_list/core/utils/size_config.dart';
 import 'package:ring_shop_list/core/utils/ui_utils.dart';
 import 'package:ring_shop_list/features/shop_list/data/models/shop_list_model.dart';
 import 'package:ring_shop_list/providers.dart';
@@ -21,7 +22,7 @@ class _ShopListViewState extends State<ShopListView> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) async {
-        fetchShops();
+        await fetchShops();
       },
     );
   }
@@ -35,7 +36,6 @@ class _ShopListViewState extends State<ShopListView> {
   int currentPage = 1;
 
   int limit = 10;
-  int offset = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +54,14 @@ class _ShopListViewState extends State<ShopListView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Height(15),
                 Text(
                   'Shops',
                   style: context.theme.textTheme.headline5?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Height(30),
+                Height(20),
                 Consumer(
                   builder: (_, watch, child) {
                     final state = watch(shopListVm);
@@ -175,7 +176,7 @@ class _ShopListViewState extends State<ShopListView> {
     if (state is Loaded<ShopListModel>) {
       var value = state.value!;
       totalPages = (value.shopCount / limit).floor();
-      currentPage = offset ~/ limit;
+      currentPage = context.read(paginationProvider).offset ~/ limit;
 
       refresh ? _shopList = value.shops : _shopList.addAll(value.shops);
 
