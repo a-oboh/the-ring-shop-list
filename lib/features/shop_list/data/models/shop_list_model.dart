@@ -11,6 +11,7 @@ ShopListModel shopListFromJson(String rawJson) =>
 class ShopListModel with _$ShopListModel {
   const factory ShopListModel({
     required List<ShopListData> shops,
+    @JsonKey(name: 'shop_count') required int shopCount,
   }) = _ShopListModel;
 
   factory ShopListModel.fromJson(Map<String, dynamic> json) =>
@@ -27,10 +28,10 @@ class ShopListData with _$ShopListData {
     required Address address,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     required City city,
-    Products? product,
-    @JsonKey(name: 'average_rating') int? averageRating,
+    List<SingleProduct?>? products,
+    @JsonKey(name: 'average_rating') double? averageRating,
     @JsonKey(name: 'review_count') int? reviewCount,
-    @JsonKey(name: 'activity_names') List<String>? activityNames,
+    @JsonKey(name: 'activity_names') List<String?>? activityNames,
     @JsonKey(name: 'is_favourite') bool? isFavourite,
     @JsonKey(name: 'distance_in_meters') int? distanceInMeters,
   }) = _ShopListData;
@@ -82,15 +83,15 @@ class CountryDetails with _$CountryDetails {
       _$CountryDetailsFromJson(json);
 }
 
-@freezed
-class Products with _$Products {
-  const factory Products({
-    required List<SingleProduct> products,
-  }) = _Products;
+// @freezed
+// class Products with _$Products {
+//   const factory Products({
+//     required List<SingleProduct> products,
+//   }) = _Products;
 
-  factory Products.fromJson(Map<String, dynamic> json) =>
-      _$ProductsFromJson(json);
-}
+//   factory Products.fromJson(Map<String, dynamic> json) =>
+//       _$ProductsFromJson(json);
+// }
 
 @freezed
 class SingleProduct with _$SingleProduct {
