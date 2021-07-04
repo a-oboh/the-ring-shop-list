@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ring_shop_list/core/utils/size_config.dart';
 
+// ignore for file: prefer_interpolation_to_compose_strings
+
 extension ContextExtension on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
   ThemeData get theme => Theme.of(this);
@@ -26,6 +28,7 @@ extension ImageKit on String {
 
   String imgKitBlur(double width, double height) {
     // ignore: unnecessary_this
+    
     return this
             .replaceFirst(RegExp(r'(h-)\d*'), 'h-${height.toInt()}')
             .replaceFirst(RegExp(r'(w-)\d*'), 'w-${width.toInt()}') +
