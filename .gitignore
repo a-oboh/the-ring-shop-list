@@ -47,7 +47,7 @@ app.*.map.json
 
 
 # build runner related
-# *.freezed.dart
+*.freezed.dart
 *.g.dart
 *.mocks.dart
 *.gr.dart
