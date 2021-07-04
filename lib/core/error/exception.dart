@@ -1,11 +1,13 @@
 class ServerException implements Exception {
-  ServerException({this.message});
+  ServerException({this.message, this.stack});
 
   final String? message;
+  final StackTrace? stack;
 }
 
 class NetworkException implements Exception {
-  NetworkException({this.message = 'Please check your internet connection'});
+  NetworkException(
+      {this.message = 'Please check your internet connection and try again'});
 
   final String message;
 }

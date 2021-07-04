@@ -26,7 +26,9 @@ class BadRequestFailure extends Failure {
 }
 
 class NetworkFailure extends Failure {
-  const NetworkFailure({this.message}) : super(message: message);
-  
+  const NetworkFailure(
+      {this.message = 'Please check your internet connection and try again'})
+      : super(message: message);
+
   final String? message;
 }

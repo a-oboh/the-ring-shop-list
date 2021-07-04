@@ -27,18 +27,22 @@ class ShopListRepositoryImpl extends ShopListRepository {
   @override
   Future<Either<Failure, ShopListModel>> getShopListFromCity(String city,
       {int limit = 0, int offset = 0}) async {
-    var isConnected = await networkInfo.isConnected;
-    if (isConnected) {
-      try {
-        final remote = await remoteDataSource.getShopListFromCity(city,
-            limit: limit, offset: offset);
-        return Right(remote);
-      } on ServerException {
-        return const Left(ServerFailure());
-      } on BadRequestException catch (e) {
-        return Left(ServerFailure(message: e.message));
+    try {
+      var isConnected = await networkInfo.isConnected;
+      if (isConnected) {
+        try {
+          final remote = await remoteDataSource.getShopListFromCity(city,
+              limit: limit, offset: offset);
+          return Right(remote);
+        } on ServerException {
+          return const Left(ServerFailure());
+        } on BadRequestException catch (e) {
+          return Left(ServerFailure(message: e.message));
+        }
+      } else {
+        return const Left(NetworkFailure());
       }
-    } else {
+    } catch (e) {
       return const Left(NetworkFailure());
     }
   }
