@@ -12,14 +12,17 @@ class GetShopsFromCity extends UseCase<ShopListModel, Params> {
 
   @override
   Future<Either<Failure, ShopListModel>> call(Params params) async {
-    return await repository.getShopListFromCity(params.city);
+    return await repository.getShopListFromCity(params.city,
+        limit: params.limit, offset: params.offset);
   }
 }
 
 class Params extends Equatable {
-  const Params({required this.city});
+  const Params({required this.city, this.limit = 0, this.offset = 0});
 
   final String city;
+  final int limit;
+  final int offset;
 
   @override
   List<Object> get props => [city];
