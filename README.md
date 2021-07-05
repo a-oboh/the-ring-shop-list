@@ -19,7 +19,9 @@ Run the app
 
 `flutter run --no-sound-null-safety`
 
+Run tests
 
+`flutter test --no-sound-null-safety`
 ## App Info
 
 This app follows the clean architecture pattern, which makes testing easier and isolates features into modules.
