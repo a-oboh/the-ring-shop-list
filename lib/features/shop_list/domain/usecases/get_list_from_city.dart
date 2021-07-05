@@ -10,6 +10,7 @@ class GetShopsFromCity extends UseCase<ShopListModel, Params> {
 
   final ShopListRepository repository;
 
+  //single usecase call method
   @override
   Future<Either<Failure, ShopListModel>> call(Params params) async {
     return await repository.getShopListFromCity(params.city,
@@ -17,6 +18,7 @@ class GetShopsFromCity extends UseCase<ShopListModel, Params> {
   }
 }
 
+//Parameters for use case call
 class Params extends Equatable {
   const Params({required this.city, this.limit = 0, this.offset = 0});
 

@@ -6,6 +6,7 @@ import 'package:ring_shop_list/core/utils/network_info.dart';
 import 'package:ring_shop_list/features/shop_list/data/data_sources/shop_list_remote_datasource.dart';
 import 'package:ring_shop_list/features/shop_list/data/models/shop_list_model.dart';
 
+//Repository for shop list
 abstract class ShopListRepository {
   Future<Either<Failure, ShopListModel>> getShopListFromCity(String city,
       {int limit = 0, int offset = 0});
@@ -24,6 +25,7 @@ class ShopListRepositoryImpl extends ShopListRepository {
   final ShopListRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 
+  //getting list from city slug
   @override
   Future<Either<Failure, ShopListModel>> getShopListFromCity(String city,
       {int limit = 0, int offset = 0}) async {

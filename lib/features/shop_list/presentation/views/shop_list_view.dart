@@ -6,6 +6,7 @@ import 'package:ring_shop_list/core/utils/constants.dart';
 import 'package:ring_shop_list/core/utils/size_config.dart';
 import 'package:ring_shop_list/core/utils/ui_utils.dart';
 import 'package:ring_shop_list/features/shop_list/data/models/shop_list_model.dart';
+import 'package:ring_shop_list/features/shop_list/presentation/views/shop_list_item.dart';
 import 'package:ring_shop_list/providers.dart';
 import '../../../../core/utils/extensions.dart';
 
@@ -22,6 +23,7 @@ class _ShopListViewState extends State<ShopListView> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) async {
+        //fetch first shop page
         await fetchShops();
       },
     );
@@ -39,6 +41,7 @@ class _ShopListViewState extends State<ShopListView> {
 
   @override
   Widget build(BuildContext context) {
+    //scroll listener for our shop list view to handle infinite scroll
     _scrollController.addListener(_onScroll);
 
     return Scaffold(
@@ -49,6 +52,7 @@ class _ShopListViewState extends State<ShopListView> {
           child: RefreshIndicator(
             backgroundColor: Colors.white,
             onRefresh: () async {
+              //refresh list on pull down
               await fetchShops(refresh: true);
             },
             child: Column(
@@ -117,6 +121,7 @@ class _ShopListViewState extends State<ShopListView> {
                         shrinkWrap: true,
                         itemCount: _shopList.length,
                         itemBuilder: (ctx, i) {
+                          //show a progress indicator when loading next page
                           if (i == _shopList.length - 1 &&
                               pageProvider.hasMore) {
                             return const Center(
@@ -133,6 +138,7 @@ class _ShopListViewState extends State<ShopListView> {
                               ),
                             );
                           }
+
                           return ShopItemWidget(index: i, items: _shopList);
                         },
                         separatorBuilder: (ctx, i) => Container(
@@ -143,8 +149,6 @@ class _ShopListViewState extends State<ShopListView> {
                         ),
                       ),
                     );
-
-                    // return const Placeholder();
                   },
                 ),
               ],
@@ -155,6 +159,7 @@ class _ShopListViewState extends State<ShopListView> {
     );
   }
 
+  //handle infinite scroll on hitting listview bottom
   void _onScroll() async {
     double max = _scrollController.position.maxScrollExtent;
     double pixels = _scrollController.position.pixels;
@@ -166,6 +171,7 @@ class _ShopListViewState extends State<ShopListView> {
     }
   }
 
+  //Fetch Shop list
   Future<void> fetchShops({bool refresh = false}) async {
     var state = await context.read(shopListVm.notifier).fetchShops(
           'lille',
@@ -184,6 +190,7 @@ class _ShopListViewState extends State<ShopListView> {
     }
   }
 
+  //fetch more shops for infinite scroll
   Future<void> fetchMoreShops() async {
     var state = await context.read(shopListVm.notifier).fetchMoreShops('lille',
         limit: limit, offset: context.read(paginationProvider).offset);
@@ -197,140 +204,5 @@ class _ShopListViewState extends State<ShopListView> {
 
       context.read(paginationProvider).setHasMore(currentPage < totalPages);
     }
-  }
-}
-
-class ShopItemWidget extends ConsumerWidget {
-  const ShopItemWidget({Key? key, required this.items, required this.index})
-      : super(key: key);
-
-  final int index;
-  final List<ShopListData> items;
-
-  @override
-  Widget build(BuildContext context, watch) {
-    var state = watch(shopListVm);
-
-    if (state is Loaded<ShopListModel>) {
-      ShopListData shop = items[index];
-
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(6.0),
-                  child: CachedNetworkImage(
-                    imageUrl: shop.coverUrl!.imgKitSize(70, 70),
-                    placeholder: (context, url) {
-                      return Image.network(shop.coverUrl!.imgKitBlur(70, 70));
-                    },
-                  ),
-                ),
-              ),
-              Width(13),
-              Expanded(
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      shop.name,
-                      style: context.theme.textTheme.headline6!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Height(5),
-                    RichText(
-                      text: TextSpan(
-                        style: context.theme.textTheme.bodyText1!.copyWith(
-                          color: Colors.grey,
-                        ),
-                        children: [
-                          TextSpan(text: '${shop.distanceInMeters} m '),
-                          WidgetSpan(
-                              child: Padding(
-                            padding: const EdgeInsets.only(right: 2, left: 1),
-                            child: Icon(
-                              Icons.star,
-                              size: 15,
-                              color: Colors.indigo[600],
-                            ),
-                          )),
-                          TextSpan(
-                            text: '${shop.averageRating ?? 'N/A'}  ',
-                            style: TextStyle(color: Colors.indigo[600]),
-                          ),
-                          TextSpan(
-                            text: '(${shop.reviewCount})',
-                            style: TextStyle(
-                              color: Colors.indigo[600]!.withOpacity(0.6),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Height(5),
-                    Text(
-                      shop.activityNames?[0] ?? '',
-                      style: context.theme.textTheme.bodyText1!.copyWith(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Spacer(),
-              const Icon(
-                Icons.chevron_right,
-                size: 30,
-                color: Colors.grey,
-              ),
-            ],
-          ),
-          Height(20),
-          SizedBox(
-            height: 100,
-            child: ListView.separated(
-              itemCount: shop.products?.length ?? 0,
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              separatorBuilder: (_, __) {
-                return Width(4);
-              },
-              itemBuilder: (BuildContext context, int i) {
-                if (i == 0) {
-                  return ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(6),
-                      bottomLeft: Radius.circular(6),
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: shop.products?[i]?.master?.illustrationUrl
-                              ?.imgKitSize(100, 100) ??
-                          Constants.productStockImg,
-                    ),
-                  );
-                }
-                return CachedNetworkImage(
-                  imageUrl: shop.products?[i]?.master?.illustrationUrl
-                          ?.imgKitSize(100, 100) ??
-                      Constants.productStockImg,
-                );
-              },
-            ),
-          ),
-        ],
-      );
-    }
-
-    return Container();
   }
 }

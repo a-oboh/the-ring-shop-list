@@ -37,11 +37,8 @@ class ShopListRemoteDataSourceImpl extends ShopListRemoteDataSource {
     } on SocketException {
       throw NetworkException();
     } catch (e, s) {
-      print(e);
-      print(s);
-
       client.close();
-      
+
       throw ServerException(stack: s);
     }
   }
