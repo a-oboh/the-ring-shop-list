@@ -16,7 +16,6 @@ class ShopItemWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, watch) {
-    var state = watch(shopListVm);
 
     ShopListData shop = items[index];
 
@@ -25,7 +24,6 @@ class ShopItemWidget extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -42,7 +40,6 @@ class ShopItemWidget extends ConsumerWidget {
             Width(13),
             Expanded(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -112,6 +109,7 @@ class ShopItemWidget extends ConsumerWidget {
               return Width(4);
             },
             itemBuilder: (BuildContext context, int i) {
+              //clip sides
               if (i == 0) {
                 return ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -125,6 +123,7 @@ class ShopItemWidget extends ConsumerWidget {
                   ),
                 );
               }
+              
               return CachedNetworkImage(
                 imageUrl: shop.products?[i]?.master?.illustrationUrl
                         ?.imgKitSize(100, 100) ??
