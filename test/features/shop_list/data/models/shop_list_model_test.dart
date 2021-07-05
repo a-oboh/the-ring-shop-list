@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:ring_shop_list/features/shop_list/data/models/shop_list_model.dart';
 
 import '../../../../data/data_reader.dart';
