@@ -8,7 +8,8 @@ class GenericStateNotifier<T> extends StateNotifier<GenericState<T>> {
   GenericStateNotifier() : super(const GenericState.initial());
 
   Future<GenericState<T>> sendRequest(
-      Future<Either<Failure, T>> Function() function) async {
+    Future<Either<Failure, T>> Function() function,
+  ) async {
     state = GenericState<T>.loading();
     final response = await function();
     return response.fold(

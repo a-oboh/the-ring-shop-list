@@ -4,14 +4,16 @@ import 'package:ring_shop_list/features/shop_list/data/models/shop_list_model.da
 import 'package:ring_shop_list/features/shop_list/domain/usecases/get_list_from_city.dart';
 
 class ShopListVm extends GenericStateNotifier<ShopListModel> {
-  ShopListVm(this.similarTv);
+  ShopListVm(this.shopsFromCity);
 
-  final GetShopsFromCity similarTv;
+  final GetShopsFromCity shopsFromCity;
 
   Future<GenericState<ShopListModel>> fetchShops(String city,
       {int limit = 10, int offset = 0}) {
     return sendRequest(() async {
-      return await similarTv(Params(city: city, limit: limit, offset: offset));
+      return await shopsFromCity(
+        Params(city: city, limit: limit, offset: offset),
+      );
     });
   }
 
@@ -19,7 +21,7 @@ class ShopListVm extends GenericStateNotifier<ShopListModel> {
       {int limit = 10, int offset = 0}) async {
     // state = GenericState<ShopListModel>.loading();
     final response =
-        await similarTv(Params(city: city, limit: limit, offset: offset));
+        await shopsFromCity(Params(city: city, limit: limit, offset: offset));
 
     return response.fold(
       (failure) =>
