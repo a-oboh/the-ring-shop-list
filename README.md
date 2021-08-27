@@ -1,4 +1,4 @@
-# The-ring.io Shop List Test
+# The-ring.io Shop List
 
 ## Getting Started
 
